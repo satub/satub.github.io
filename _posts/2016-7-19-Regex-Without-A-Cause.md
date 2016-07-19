@@ -19,7 +19,7 @@ title: One Flew Over the Regex Match
 * What is grouping?
   + ()()()
   + ![Feeling like a pro](http://i.imgur.com/alu7wsS.png)
-  + [try it yourself] (http://regexone.com/problem/extracting_url_data?)
+  + [try it yourself](http://regexone.com/problem/extracting_url_data?)
 * How to match without grouping?
   + (?:)
 * Getting a kick out of backreferences
