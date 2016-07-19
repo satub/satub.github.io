@@ -24,7 +24,7 @@ title: One Flew Over the Regex Match
   + (?:)
 * Getting a kick out of backreferences
   + progression, numbering
-  + what does this do? $$ (.{3}).\*\\1 $$
+  + what does this do? (.{3}).\*\\1
 
 
 ### Resources
