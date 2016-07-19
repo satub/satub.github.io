@@ -17,14 +17,14 @@ title: One Flew Over the Regex Match
   + Word boundaries, line starts and ends
 
 * What is grouping?
-  + ()()()
-  + ![Feeling like a pro](http://i.imgur.com/alu7wsS.png)
-  + [try it yourself](http://regexone.com/problem/extracting_url_data?)
+  + ()()()    
+  ![Feeling like a pro](http://i.imgur.com/alu7wsS.png)    
+  [try it yourself](http://regexone.com/problem/extracting_url_data?)
 * How to match without grouping?
   + (?:)
 * Getting a kick out of backreferences
   + progression, numbering
-  + what does this do? (.{3}).\*\\1
+  + what does this do? $$ (.{3}).\*\\1 $$
 
 
 ### Resources
