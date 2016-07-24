@@ -43,7 +43,7 @@ Testing out your expressions will also give you a clearer view on whether you ar
 
 As regex expressions start slowly making more and more sense, a sudden impulse for philosophical pondering hits me:
 
-So, how can the computer tell the kitten apart from the snow? For a human this might seem obvious, but a computer needs to be told what how to identify both the borders between snow and the kitten as well as the shape of the kitten in clear terms. In regex, text can be viewed by alternating patterns of word- and non-word characters. Like clusters of letters and digits separated from one another with spaces and punctuation. Alternating vowels and consonants form stripe patterns into a word, dots and `@`s are the joints of an email address. Maybe the question is not "Why is regex so difficult to understand?" but "How can the human brain determine borders and patterns so effortlessly?"
+So, how can the computer tell the kitten apart from the snow? For a human this might seem obvious, but a computer needs to be told how to identify both the borders between snow and the kitten as well as the shape of the kitten in clear terms. In regex, text can be viewed by alternating patterns of word- and non-word characters. Like clusters of letters and digits separated from one another with spaces and punctuation. Alternating vowels and consonants form stripe patterns into a word, dots and `@`s are the joints of an email address. Maybe the question is not "Why is regex so difficult to understand?" but "How can the human brain determine borders and patterns so effortlessly?"
 
 ![Jeremy Brett as Sherlock Holmes](https://upload.wikimedia.org/wikipedia/en/b/b0/Jeremy_Brett.jpg)  
 Jeremy Brett as Sherlock Holmes - [Image Source: Wikipedia](https://en.wikipedia.org/wiki/Jeremy_Brett)
@@ -77,7 +77,7 @@ _Eleanor Farjeon (1881 - 1965)_
   + captures `e`, `d`, `l`, `t`, and `e`  
 
 
-_Great! So we captured some letters. What of it?_ The point is, when you capture a pattern you can reference back to it and catch a bigger fish. Let's take a closer look at the last example: we saw that it matches to any word that has two adjacent identical letters, but how does is do that? `\1` is a __backreference__ to capture group number one in each individual match. Therefore, `(\w)\1` looks for two identical word characters in the pattern, regardless of what the exact character is: 'ee', '55', and 'nn' will all be matched.  
+_Great! So we captured some letters. What of it?_ The point is, when you capture a pattern you can reference back to it and catch a bigger fish. Let's take a closer look at the last example: we saw that it matches to any word that has two adjacent identical letters, but how does is do that? `\1` is a __backreference__ to capture group number one in each individual match. Therefore, `(\w)\1` looks for two identical word characters in the pattern, regardless of what the exact character is: `ee`, `55`, and `nn` will all be matched.  
 
 Note that the groups are always numbered from left to right. Correct numbering is crucial for any form of successful backreferencing. To clarify this issue, you can test both the matched result as well as the captured groups for your expressions on Rubular. For example, if you would like to add groups for whatever reason to the last example, eg `\b(\w*)(\w)\1\w*\b`, the code would break as `\1` is now referring to group `(\w*)`. To keep your second group in the code, you could either change the reference number to `\2` => `\b(\w*)(\w)\2\w*\b` or mark the first group as non-capture group with `(?:)` => `\b(?:\w*)(\w)\1\w*\b` Voilà, now `(\w)` is again the first captured group!   
 
@@ -102,9 +102,9 @@ During our first weeks of learning how to code, not much emphasis needs to be gi
 
 ### Resources
 
-* [Interactive Tutorial to Regex Matching](http://regexone.com/)
+* [Interactive tutorial to regex matching](http://regexone.com/)
 * [Test your regex for ruby at Rubular](http://rubular.com/)
 * [Quick reference for regex expressions](http://www.regular-expressions.info/refquick.html)
-* [Need a Break? Go Play Golf!](http://regex.alf.nu/)
+* [Need a break? Go play golf!](http://regex.alf.nu/)
 
 [ref]
