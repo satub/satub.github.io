@@ -93,7 +93,7 @@ Feeling like a pro! [Try it yourself here](http://regexone.com/problem/extractin
 
 
 
-#### An Afterthought --- "What do we need nuclear power plants for? I just had a chat with the girls and we know no one who uses nuclear power. We have electricity, let's use that!" [ref]
+#### An Afterthought --- "What do we need nuclear power plants for? I just had a chat with the girls and we know no one who uses nuclear power. We have electricity, let's use that!"
 
 During our first weeks of learning how to code, not much emphasis needs to be given on how efficient your code is. As the number of lines in the code we write increase, I can't help but to think, whether the way we choose to solve a problem with will eat up a lot of processing power? Regex is said to be powerful, and it does save you from writing explicit looping structures, but what does the regex machine under those short pattern matching expressions actually do? Recently, [Stackoverflow reported that their site was KO'ed for 34 minutes due to a regex expression dealing with a malformed post with large number of spaces.](http://stackstatus.net/post/147710624694/outage-postmortem-july-20-2016)  To a newbie coder this case teaches that even if your pattern matching doesn't look like a loop, it might still work like one.
 
@@ -106,5 +106,3 @@ During our first weeks of learning how to code, not much emphasis needs to be gi
 * [Test your regex for ruby at Rubular](http://rubular.com/)
 * [Quick reference for regex expressions](http://www.regular-expressions.info/refquick.html)
 * [Need a break? Go play golf!](http://regex.alf.nu/)
-
-[ref]
