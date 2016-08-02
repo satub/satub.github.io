@@ -5,7 +5,7 @@ title: Little Gem
 
 #### Coding My First Gem
 
-This blog post describes musings on first gem. A gem! Sounds luxurious, right?
+This blog post describes musings on my first gem. A gem! Sounds luxurious, right?
 
 
 ![diamonds are a girl's best friend](https://upload.wikimedia.org/wikipedia/commons/b/b6/Gentlemen_Prefer_Blondes_Movie_Trailer_Screenshot_(34).jpg)
