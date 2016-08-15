@@ -169,7 +169,7 @@ How cool is that! Now I have half a mind to go and add ActiveModel::Dirty to a b
 
 #### Afternote: <a name="afternote"></a>
 
-I did, in the end, get the balance changes working by adding password authentication also to the updating. The key to understanding what was happening after I got the nudge to the right direction (thank you, Fidel!) was running `@user.errors` in pry, which returned the actual failing part of my .update call:  
+I did, in the end, get the balance changes working by adding password authentication also to the updating. The key to understanding what was happening after I got the nudge to the right direction (thank you, Fidel and Ozzie!) was running `@user.errors` in pry, which returned the actual failing part of my .update call:  
 
 `#<ActiveModel::Errors:0x007fe92d809d50
 ....
