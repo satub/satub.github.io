@@ -153,8 +153,11 @@ How cool is that! Now I have half a mind to go and add ActiveModel::Dirty to a b
 
 #### Resources   
 
-[ActiveModel Basics](http://guides.rubyonrails.org/active_model_basics.html)   
-***********
+[ActiveModel Basics](http://guides.rubyonrails.org/active_model_basics.html)      
+
+
+***************
+
 
 #### Afternote:
 
