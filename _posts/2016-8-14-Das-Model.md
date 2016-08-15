@@ -21,16 +21,24 @@ So, here I was, in the middle of doing the bonus part of the [Flatiron Bank / si
   end
 </code></pre>      
 
-But it didn't quite go according to plan:
+But it didn't quite go according to plan. You done goofed:
 
 ![](https://i.imgur.com/WJ9NENd.png)   
 
-Didn't I just successfully update the users table? After all, the instance variable @user showed up with the updated balance. Yet, selecting the same user data from the database with .find showed that the balance was still the same!   
+Didn't I just successfully update the users table? After all, the instance variable @user showed up with the updated balance. Yet, selecting the same user data from the database with .find showed that the balance was still the same!    
 
-![](http://www.reactiongifs.us/wp-content/uploads/2015/12/interesting_reaction_nightmare_before_christmas.gif)     
+As if this wasn't enough, trying to compare the variables on the screen resulted into even weirder output:
+
+![](https://i.imgur.com/SRdS0e6.png)
+
+Clearly, this was leading to nowhere, fast!    
+
+![](http://www.reactiongifs.us/wp-content/uploads/2015/12/interesting_reaction_nightmare_before_christmas.gif)    
+
+The thing is, [the class method .update apparently always returns the resulting object, __REGARDLESS__ of whether it was updated into the table or not!](http://apidock.com/rails/v2.3.8/ActiveRecord/Base/update/class)  How inconvenient. There must have been a data validation that wasn't passing, but I found myself totally clueless as how to solve this issue.   
 
 
-The thing is, [the class method .update apparently always returns the resulting object, __REGARDLESS__ of whether it was updated into the table or not!](http://apidock.com/rails/v2.3.8/ActiveRecord/Base/update/class)  How inconvenient. There must have been a data validation that wasn't passing, but I found myself totally clueless as how to solve this issue. I chose to attack the problem with the somewhat dangerous instance method #update_attribute(name, value) instead. This method by-passes validations; not safe for real applications, but good enough for a bonus coding task on a Friday afternoon; after all, I was mainly concerned about testing the '/patch' and '/delete/' routes in the application controller.  However, as happy as I was with finally succeeding in using the 'patch' route and the record having been finally saved into the database, I was even more intrigued by this line in the method description:    
+I chose to attack the problem with the somewhat dangerous instance method #update_attribute(name, value) instead (do not try this at work!). This method by-passes validations; this is certainly __not__ safe for real applications, but good enough for a bonus coding task on a Friday afternoon; at this point I was mainly concerned about testing the '/patch' and '/delete/' routes in the application controller, just to get _something_ working (see <a href="#afternote">Afternote</a>). However, as happy as I was with finally succeeding in using the 'patch' route and the record having been finally saved into the database, I was even more intrigued by this line in the method description:    
 
 [`update_attribute :Updates all the attributes that are dirty in this object.`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update_attribute)
 
@@ -146,7 +154,7 @@ electronica => #<ElectronicMusic:0x007f9cc9b9f998
  @title="Die Mensch-Maschine",
  @tracks=["Das Model", "Neonlicht"]></code></pre>   
 
-How cool is that! Now I have half a mind to go and add ActiveModel::Dirty to a bunch of previous object relationship labs. Unfortunately, our time is limited, so I shall dispel such evil thoughts by watching some German television from the 80s.....(and I still have to figure out what went wrong with those .update validations...)
+How cool is that! Now I have half a mind to go and add ActiveModel::Dirty to a bunch of previous object relationship labs. Unfortunately, our time is limited, so I shall dispel such evil thoughts by watching some German television from the 80s.....
 
 [Watch Das Model by Kraftwerk on ZDF (youtube)](https://www.youtube.com/watch?v=84YCcDY4coU)    
 
@@ -159,10 +167,10 @@ How cool is that! Now I have half a mind to go and add ActiveModel::Dirty to a b
 ***************
 
 
-#### Afternote:
+#### Afternote: <a name="afternote"></a>
 
-I did, in the end, get the database update working by using the #update_attributes instead of the class method, but before I solved that I experienced one extra level of weirdness:     
+I did, in the end, get the balance changes working by adding password authentication also to the updating. The key to understanding what was happening after I got the nudge to the right direction (thank you, Fidel!) was running `@user.errors` in pry, which returned the actual failing part of my .update call:  
 
-![](https://i.imgur.com/SRdS0e6.png)
-
-You done goofed.
+`#<ActiveModel::Errors:0x007fe92d809d50
+....
+ @messages={:password=>["can't be blank"]}>`
