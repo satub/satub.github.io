@@ -235,3 +235,50 @@ Sometimes, you'll just have to deal with the new syntax and learn to read it rig
 [http://api.rubyonrails.org/classes/ActiveRecord/Relation.html](http://api.rubyonrails.org/classes/ActiveRecord/Relation.html)
 [http://apidock.com/rails/v4.0.2/ActiveRecord/QueryMethods/having](http://apidock.com/rails/v4.0.2/ActiveRecord/QueryMethods/having)
 [http://www.w3schools.com/sql/sql_having.asp](http://www.w3schools.com/sql/sql_having.asp)
+
+
+##### Class associations   
+
+<pre><code class="x-long">
+class Family < ActiveRecord::Base
+  has_many :family_characters
+  has_many :characters, through: :family_characters
+  has_many :character_relationships, through: :characters
+  has_many :reverse_character_relationships, through: :characters
+end    
+
+
+class FamilyCharacter < ActiveRecord::Base
+  belongs_to :family
+  belongs_to :character
+end        
+
+
+class Character < ActiveRecord::Base
+  has_many :family_characters
+  has_many :families, through: :family_characters
+
+
+  has_many(:character_relationships, :foreign_key => :character_a_id, :dependent => :destroy)
+  has_many(:reverse_character_relationships, :class_name => :CharacterRelationship,
+      :foreign_key => :character_b_id, :dependent => :destroy)
+  has_many :characters, :through => :character_relationships, :source => :character_b
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
+  def full_name=(name)
+    parts = name.split(" ")
+    self.first_name = parts[0]
+    self.last_name = parts[1]
+  end      
+end     
+
+
+class CharacterRelationship < ActiveRecord::Base
+  belongs_to :character_a, :class_name => :Character
+  belongs_to :character_b, :class_name => :Character
+end   
+
+</code></pre>
