@@ -26,7 +26,8 @@ There are 7 models in this app, 3 of which are many_to_many join tables: player,
 The game_players table allows players to have multiple games. The game_characters table allows the players to reuse their characters; the available troops for that character to use in takeovers is defined separately for each game through this table. Character_locations table tracks down the whole takeover history for each location.
 
 
-The signup and session is handled via the Devise gem. Instead of the default user-namespace, these devise routes were set to point to players. To be able to add the player alias into the DB upon signup, an override was generated with a separate registrations controller:
+The signup and session is handled via the Devise gem. Instead of the default user-namespace, these devise routes were set to point to players. To be able to add the player alias into the DB upon signup, an override was generated with a separate registrations controller:  
+
  <pre><code class="x-long">
  class Players::RegistrationsController < Devise::RegistrationsController
 
@@ -40,12 +41,12 @@ The signup and session is handled via the Devise gem. Instead of the default use
      params.require(:player).permit(:alias, :email, :password, :password_confirmation, :current_password)
    end
  end
- </pre></code>
+ </code></pre>
 
- In addition to the default controllers, the app has controllers for characters, games, and locations, as well as a static controller for the welcome and about pages. Dynamic views are provided for characters, games, and locations. The games and locations controllers have the most actions, and these models have also the most custom methods for handling the gameplay and location takeover actions.     
+ In addition to the default controllers, the app has controllers for characters, games, and locations, as well as a static controller for the welcome and about pages. Dynamic views are provided for characters, games, and locations. The games and locations controllers have the most actions, and these models have also the most custom methods for handling the gameplay and location takeover actions.       
 
 
-#### Something New, Something Learned
+#### Something New, Something Learned  
 
 This project was the first where I used Postgres database instead of sqlite. Apart from the initialization, the  differences in using it are minimal as the ActiveRecord methods mask the database flavors. However, the default ordering of records when running Model.all is different: instead of always returning the instances sorted by their index, the sorting was affected by any table updates. This caused some initial confusion when building views for all the locations in a given game as they got shuffled every time the content was updated.     
 
