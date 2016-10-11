@@ -1,10 +1,10 @@
 ---
 layout: page
-title: About
+title: Me in less than 25 words
 permalink: /about/
 ---
 
-TBA
+Problem solver, puzzle & cat enthusiast, code lover and aspiring web-developer with one foot in physics and the other in medicine.   
 
 [comment]: # Some information about you!
 
