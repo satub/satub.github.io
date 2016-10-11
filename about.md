@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Me in less than 25 words
+title: Me in less than 33 words
 permalink: /about/
 ---
 
-Problem solver, puzzle & cat enthusiast, code lover and aspiring web-developer with one foot in physics and the other in medicine.   
+Problem solver, puzzle & cat enthusiast, gamer, hard core knitter, code lover and aspiring web-developer with one foot in physics and the other in medicine.   
 
 [comment]: # Some information about you!
 
