@@ -19,13 +19,13 @@ As explained to me by my interviewers or as described in [w3schools.com](http://
 
 #### Slightly Unorthodox Use for an SQL View   
 
-Recently, I had run into a problem when generating JSON responses using Active Model Serializer (AMS) on associated model data. I have a game model with many locations associated to it. It turned out that every time when I updated a location row, the order of the locations returned with the game would change. This is because [Postgres returns the queried rows in an unspecified order, depending on the entry write-order on disk, among other things.](https://www.postgresql.org/docs/9.1/static/queries-order.html)
+Recently, I had run into a problem when generating JSON responses using Active Model Serializer (AMS) on associated model data. I have a game model with many locations associated to it. It turned out that every time when I updated a location row in the database, the order of the locations returned with the game instance would change. This is because [Postgres returns the queried rows in an unspecified order, depending on the entry write-order on disk, among other things.](https://www.postgresql.org/docs/9.1/static/queries-order.html)
 
 Why would I care about the order? Because the presentation of the locations on the rendered webpage is a simple for-loop. Thus, if a location's position in the json-response changes every time a location is updated (aka another player takes control over it in the game), it will lead on its position changing on the page as well. Imagine if Ireland would have relocated from Europe to Australia on the map the minute she declared independence. Weird!
 
-Now, if I was querying these locations straight via a locations controller, it would be easy to just add an ActiveRecord order clause to the query, eg. `@locations = Location.where('game_id = ?', current_game.id).order(:id)` . However, the locations associated to a game were now returned as JSON in random order via AMS by querying the game table. Thus, I found no simple way to inject the order by clause into the formation of the hash.
+Now, if I was querying these locations straight via a locations controller, it would be easy to just add an ActiveRecord order clause to the query, eg. `@locations = Location.where('game_id = ?', current_game.id).order(:id)` . However, the locations associated to a game were now returned as JSON in random order via AMS by querying the game table. Thus, I found no simple way to inject the order by clause into the formation of the hash. On the other hand, building a custom method for repeated sorting of a part of a JSON hash didn't seem worthwhile, either. After all, shouldn't the DB be able to do this simple sorting for me?
 
-Enter SQL view. Following the principles of [setting SQL views together with Rails as described in this handy blog post](https://rietta.com/blog/2013/11/28/rails-and-sql-views-for-a-report/), I decided to test this feature by creating a virtual ordered_locations table via aSELECT statement on the locations table with index ordering. First, a migration:
+Enter SQL view. Following the principles of [setting SQL views together with Rails as described in this handy blog post](https://rietta.com/blog/2013/11/28/rails-and-sql-views-for-a-report/), I decided to test this feature by creating a virtual ordered_locations table via a SELECT statement on the locations table with index ordering. First, a migration:
 
 <pre><code class="x-long">class CreateOrderedLocations < ActiveRecord::Migration[5.0]
   def up
@@ -57,7 +57,7 @@ Then, the model without an actual DB table:
 end
 </code></pre>
 
-For the assocaiations to work in the serializers, I added `has_many :ordered_locations` to `app/models/game.rb`, and changed the custom associated serializer:
+For the associations to work in the serializers, I added `has_many :ordered_locations` to `app/models/game.rb`, and changed the custom associated serializer:
 <pre><code class="long">class GameSerializer < ActiveModel::Serializer
   attributes :id, :title, :status, :turn, :winner, :map_name, :map_size, :background_image_link
   has_many :ordered_locations, serializer: CustomLocationSerializer
@@ -66,7 +66,7 @@ For the assocaiations to work in the serializers, I added `has_many :ordered_loc
 end
 </code></pre>
 
-And thus, an ajax get request to the games.controller #show action produces json with locations ordered by their primary key!
+And thus, an ajax get request to the games.controller #show action produces JSON with locations ordered by their primary key!
 <pre><code class="x-long">{
   game: {
     id: 1,
@@ -135,7 +135,7 @@ And thus, an ajax get request to the games.controller #show action produces json
 
 Since I'm querying the whole set of locations only through the associated game instance, nothing needed to be changed in the controllers.
 
-While it might be a bit of an overkill to use an SQL view to just guarantee a simple table ordering, this simple experiment did provide a solution to my problem of preventing locations from changing position upon updating and I hope it will give some idea how handy such a feature is for organizing data resulting from considerably more complex queries.
+While it might be a bit of an overkill to use an SQL view to just guarantee a straightforward table ordering, this simple experiment did provide a solution to my problem of preventing locations from changing position upon updating and I hope it will give some idea how handy such a feature is for organizing data resulting from considerably more complex queries.
 
 
 ##### Resources    
