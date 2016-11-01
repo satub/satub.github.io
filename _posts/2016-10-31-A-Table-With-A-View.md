@@ -135,7 +135,7 @@ And thus, an ajax get request to the games.controller #show action produces json
 
 Since I'm querying the whole set of locations only through the associated game instance, nothing needed to be changed in the controllers.
 
-While it might be a bit of an overkill to use an SQL view to just guarantee a simple table ordering, this simple experiment did provide a solution to my problem of moving locations and I hope it will give some idea how handy such a feature is for organizing data resulting from more complex queries. :D
+While it might be a bit of an overkill to use an SQL view to just guarantee a simple table ordering, this simple experiment did provide a solution to my problem of preventing locations from changing position upon updating and I hope it will give some idea how handy such a feature is for organizing data resulting from considerably more complex queries.
 
 
 ##### Resources    
