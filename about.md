@@ -1,8 +1,10 @@
 ---
 layout: page
-title: Me in less than 30 words
+title: 
 permalink: /about/
 ---
+
+##### Me in less than 30 words
 
 Aspiring web-developer, problem solver, lover of science, gamer, hard-core knitter, and puzzle & cat enthusiast with one foot in physics and the other in medicine.
 
